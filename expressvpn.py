@@ -245,6 +245,9 @@ def create_vpn_window():
     global server_label
     global connect_button
     global circle  # Agrega una referencia al widget del círculo
+    global connected  # Añade esta línea para indicar que estás utilizando la variable global 'connected'
+
+    connected = False  # Agrega esta línea para asegurarte de que 'connected' se inicialice correctamente
 
     window = tk.Tk()
     window.title("Aplicación ExpressVPN")
