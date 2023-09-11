@@ -30,7 +30,7 @@ Exec=/ruta/del/script/tu_script.py
 Name=Mi Script VPN
 Comment=Inicia mi script VPN
 Icon=/ruta/a/un/icono.png
-``
+```
     Exec: Debes reemplazar /ruta/del/script/tu_script.py con la ruta completa de tu script.
     Name: Es el nombre que aparecerá en el acceso directo.
     Comment: Es una descripción opcional.
