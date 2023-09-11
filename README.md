@@ -6,6 +6,12 @@ Una GUI para ExpressVPN ejecutable con python3.11 y en escritorio GNOME. Evident
 
 ![desconexion-expressvpn](https://github.com/sapoclay/expressvpn-gui/assets/6242827/7747e455-0ade-4177-beae-cb9ffef34bbd)
 
+# Dependencias
+
+Para ejecutar este script, necesitarás tener instalado Python y las bibliotecas tkinter y ttk en tu sistema. Estas bibliotecas están incluidas en la instalación estándar de Python, así que normalmente no debería ser necesario instalar nada adicional.
+
+Sin embargo, este script también depende de la herramienta expressvpn. Por eso, es necesario asegurarse de tener esta herramienta instalada y configurada correctamente en tu sistema. Si no la tienes, deberás [instalarla](https://www.expressrefer.com/refer-a-friend/30-days-free?locale=es&referrer_id=40141467&utm_campaign=referrals&utm_medium=copy_link&utm_source=referral_dashboard)  antes de ejecutar el script.
+
 ## Crea el script:
 
 Primero, necesitas asegurarte de que tu script (el que te puedes descargar desde este repositorio) tenga permisos de ejecución. Abre una terminal y navega al directorio donde se encuentra tu script. Luego, ejecuta el siguiente comando para darle permisos de ejecución:
