@@ -21,7 +21,7 @@ gedit ~/.local/share/applications/tu_script.desktop
 Esto abrirá Gedit y te permitirá crear un nuevo archivo de escritorio. Si prefieres otro editor, puedes usarlo en su lugar.
 
 Llegados a este punto, adjunta el siguiente contenido al archivo (asegúrate de actualizar la ruta del script):
-
+```
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -30,7 +30,7 @@ Exec=/ruta/del/script/tu_script.py
 Name=Mi Script VPN
 Comment=Inicia mi script VPN
 Icon=/ruta/a/un/icono.png
-
+``
     Exec: Debes reemplazar /ruta/del/script/tu_script.py con la ruta completa de tu script.
     Name: Es el nombre que aparecerá en el acceso directo.
     Comment: Es una descripción opcional.
