@@ -233,8 +233,9 @@ def update_status_and_server(server):
     update_circle_status()
 
 def update_circle_status():
-    global circle_color
-    if circle_color == "green":
+    status, _ = get_connection_status()
+
+    if status == "Conectado":
         circle.config(bg="green")
     else:
         circle.config(bg="red")
