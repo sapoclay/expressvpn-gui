@@ -32,10 +32,11 @@ Llegados a este punto, adjunta el siguiente contenido al archivo (asegúrate de 
 Version=1.0
 Type=Application
 Terminal=false
-Exec=/ruta/del/script/tu_script.py
+Exec=python3 /ruta/del/script/tu_script.py
 Name=Mi Script VPN
 Comment=Inicia mi script VPN
 Icon=/ruta/a/un/icono.png
+Path=/ruta/del/script/
 ```
     Exec: Debes reemplazar /ruta/del/script/tu_script.py con la ruta completa de tu script.
     Name: Es el nombre que aparecerá en el acceso directo.
