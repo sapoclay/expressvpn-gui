@@ -2,13 +2,13 @@
 
 ![expressvpn-gui](https://github.com/sapoclay/expressvpn-gui/assets/6242827/e70b3476-b2a5-49be-9efc-666467836df6)
 
-Una GUI para ExpressVPN ejecutable con python3.11 y en escritorio GNOME. Evidentemente debes de tener una cuenta con [EXPRESSVPN](https://www.expressvpn.com/es/refer-a-friend/30-days-free?locale=es&referrer_id=40141467&utm_campaign=referrals&utm_medium=copy_link&utm_source=referral_dashboard) comprada. Esto solo se ha creado por comodidad para mi ...
+Una GUI para ExpressVPN ejecutable con Python 3.11 y en escritorio GNOME. Evidentemente debes de tener una cuenta con [EXPRESSVPN](https://www.expressvpn.com/es/refer-a-friend/30-days-free?locale=es&referrer_id=40141467&utm_campaign=referrals&utm_medium=copy_link&utm_source=referral_dashboard) comprada. Esto solo se ha creado por comodidad para mi ...
 
 ![desconexion-expressvpn](https://github.com/sapoclay/expressvpn-gui/assets/6242827/7747e455-0ade-4177-beae-cb9ffef34bbd)
 
 # Dependencias
 
-Para ejecutar este script, necesitarás tener instalado Python y las bibliotecas tkinter y ttk en tu sistema. Estas bibliotecas están incluidas en la instalación estándar de Python, así que normalmente no debería ser necesario instalar nada adicional.
+Para ejecutar este script, necesitarás tener instalado Python 3.11 y las bibliotecas tkinter y ttk en tu sistema. Estas bibliotecas están incluidas en la instalación estándar de Python, así que normalmente no debería ser necesario instalar nada adicional.
 
 Sin embargo, este script también depende de la herramienta expressvpn. Por eso, es necesario asegurarse de tener esta herramienta instalada y configurada correctamente en tu sistema. Si no la tienes, deberás [instalarla](https://www.expressrefer.com/refer-a-friend/30-days-free?locale=es&referrer_id=40141467&utm_campaign=referrals&utm_medium=copy_link&utm_source=referral_dashboard)  antes de ejecutar el script.
 
