@@ -5,6 +5,9 @@ import re
 
 # Variable global para el estado de la conexión
 connected = False
+
+
+
 # Variable global para el color del círculo
 circle_color = "red"  # Inicialmente, el círculo está en rojo (desconectado)
 
@@ -192,8 +195,8 @@ def connect_vpn(selected_server):
             try:
                 subprocess.run(["expressvpn", "connect", selected_server])
                 connected = True  # Actualiza el estado de la conexión
-                messagebox.showinfo("Conexión VPN", f"Conectado a {selected_server}.")
                 update_status_and_server(selected_server)
+                messagebox.showinfo("Conexión VPN", f"Conectado a {selected_server}.")
             except subprocess.CalledProcessError:
                 messagebox.showerror("Error", "No se pudo conectar a ExpressVPN.")
 
@@ -223,7 +226,7 @@ def update_status_and_server(server):
         connect_button.config(text="Conectado", bg="green", state=tk.DISABLED)
         circle_color = "green"  # Cambia el color del círculo a verde cuando estás conectado
     else:
-        connect_button.config(text="Conectar", state=tk.NORMAL)
+        connect_button.config(text="Conectar", bg="silver", state=tk.NORMAL)
         circle_color = "red"  # Cambia el color del círculo a rojo cuando estás desconectado
 
     # Actualiza el círculo de estado
@@ -236,9 +239,6 @@ def update_circle_status():
     else:
         circle.config(bg="red")
 
-
-
-
 def create_vpn_window():
     global status_label
     global server_label
@@ -247,7 +247,6 @@ def create_vpn_window():
 
     window = tk.Tk()
     window.title("Aplicación ExpressVPN")
-
 
     label = tk.Label(window, text="Conexión a ExpressVPN", font=("Arial", 14))
     label.grid(columnspan=2, pady=10)
@@ -272,6 +271,14 @@ def create_vpn_window():
     server_label.grid(columnspan=2, pady=5)
 
     update_status_and_server("")  # Pasa una cadena vacía como valor inicial
+
+    # Añade este código para verificar el estado de la conexión al inicio
+    initial_status, initial_server = get_connection_status()
+    if initial_status == "Conectado":
+        connected = True
+        update_status_and_server(initial_server)
+
+    server_combobox.set(initial_server)  # Establece el servidor conectado como seleccionado
 
     window.mainloop()
 
