@@ -6,168 +6,25 @@ import re
 # Variable global para el estado de la conexión
 connected = False
 
-
-
 # Variable global para el color del círculo
 circle_color = "red"  # Inicialmente, el círculo está en rojo (desconectado)
 
+def get_server_list():
+    try:
+        result = subprocess.run(["expressvpn", "list", "all"], capture_output=True, text=True)
+        output = result.stdout.strip().splitlines()
 
-# Listado de servidores personalizados
-server_list = [
-    "Spain - Barcelona",
-    "India (via UK)",
-    "India (via Singapore)",
-    "Spain - Madrid",
-    "Spain - Barcelona - 2",
-    "Singapore - Jurong",
-    "Singapore - CBD",
-    "Singapore - Marina Bay",
-    "UK - Docklands",
-    "UK - London",
-    "UK - East London",
-    "UK - Midlands",
-    "UK - Wembley",
-    "Hong Kong - 2",
-    "Hong Kong - 1",
-    "Japan - Tokyo",
-    "Japan - Shibuya",
-    "Japan - Yokohama",
-    "Japan - Tokyo - 2",
-    "USA - New Jersey - 1",
-    "USA - New Jersey - 3",
-    "USA - New York",
-    "USA - Atlanta",
-    "USA - Miami",
-    "USA - Miami - 2",
-    "USA - Washington DC",
-    "USA - Dallas",
-    "USA - Chicago",
-    "USA - Lincoln Park",
-    "USA - Albuquerque",
-    "USA - San Francisco",
-    "USA - Los Angeles - 3",
-    "USA - Los Angeles - 2",
-    "USA - Seattle",
-    "USA - Denver",
-    "USA - Salt Lake City",
-    "USA - Tampa - 1",
-    "USA - Phoenix",
-    "USA - New Jersey - 2",
-    "USA - Dallas - 2",
-    "USA - Los Angeles - 1",
-    "USA - Los Angeles - 5",
-    "USA - Santa Monica",
-    "Australia - Melbourne",
-    "Australia - Woolloomooloo",
-    "Australia - Sydney",
-    "Australia - Perth",
-    "Australia - Brisbane",
-    "Australia - Adelaide",
-    "Australia - Sydney - 2",
-    "Germany - Frankfurt - 3",
-    "Germany - Nuremberg",
-    "Germany - Frankfurt - 1",
-    "South Korea - 2",
-    "Philippines",
-    "Malaysia",
-    "Netherlands - Rotterdam",
-    "Netherlands - Amsterdam",
-    "Netherlands - The Hague",
-    "Sri Lanka",
-    "Pakistan",
-    "Kazakhstan",
-    "France - Marseille",
-    "France - Paris - 2",
-    "France - Paris - 1",
-    "France - Strasbourg",
-    "France - Alsace",
-    "Thailand",
-    "Indonesia",
-    "Mexico",
-    "New Zealand",
-    "Belgium",
-    "Taiwan - 3",
-    "Switzerland",
-    "Switzerland - 2",
-    "Vietnam",
-    "Italy - Cosenza",
-    "Italy - Naples",
-    "Italy - Milan",
-    "Macau",
-    "Cambodia",
-    "Mongolia",
-    "Laos",
-    "Myanmar",
-    "Nepal",
-    "Uzbekistan",
-    "Bangladesh",
-    "Bhutan",
-    "Brunei",
-    "Pick for Me",
-    "Canada - Toronto",
-    "Canada - Vancouver",
-    "Canada - Toronto - 2",
-    "Canada - Montreal",
-    "Brazil - 2",
-    "Brazil",
-    "Panama",
-    "Chile",
-    "Argentina",
-    "Bolivia",
-    "Costa Rica",
-    "Colombia",
-    "Venezuela",
-    "Ecuador",
-    "Guatemala",
-    "Peru",
-    "Uruguay",
-    "Bahamas",
-    "Sweden",
-    "Sweden - 2",
-    "Romania",
-    "Isle of Man",
-    "Turkey",
-    "Ireland",
-    "Iceland",
-    "Norway",
-    "Denmark",
-    "Finland",
-    "Greece",
-    "Portugal",
-    "Austria",
-    "Armenia",
-    "Poland",
-    "Lithuania",
-    "Latvia",
-    "Estonia",
-    "Czech Republic",
-    "Andorra",
-    "Montenegro",
-    "Bosnia and Herzegovina",
-    "Luxembourg",
-    "Hungary",
-    "Bulgaria",
-    "Belarus",
-    "Ukraine",
-    "Malta",
-    "Liechtenstein",
-    "Cyprus",
-    "Albania",
-    "Croatia",
-    "Slovenia",
-    "Slovakia",
-    "Monaco",
-    "Jersey",
-    "North Macedonia",
-    "Moldova",
-    "Serbia",
-    "Georgia",
-    "South Africa",
-    "Israel",
-    "Egypt",
-    "Kenya",
-    "Algeria",
-]
+        # Obtener el primer grupo de letras de cada fila, omitiendo los dos primeros resultados
+        locations = [line.split(None, 1)[0] for line in output[2:] if line.strip()]
+
+        return locations
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error al obtener la lista de servidores: {e}")
+        return []
+
+# lista de servidores
+server_list = get_server_list()
 
 def get_connection_status():
     try:
@@ -177,11 +34,14 @@ def get_connection_status():
         if "Not connected" in output:
             return "Desconectado", ""
         else:
-            server_line = re.search(r"Connected to (.*?)\s*(\(|$)", output)
+            server_line = re.search(r"Connected to (.*?)\n", output)
             server = server_line.group(1) if server_line else ""
             return "Conectado", server
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError as e:
+        print(f"Error al obtener el estado de la conexión: {e}")
         return "Desconectado", ""
+
+
 
 def connect_vpn(selected_server):
     global connected
@@ -215,6 +75,7 @@ def update_status_and_server(server):
     global status_label
     global server_label
     global connect_button
+    global disconnect_button
     global circle_color  # Agrega una referencia al color del círculo
 
     status, _ = get_connection_status()
@@ -223,10 +84,12 @@ def update_status_and_server(server):
 
     # Cambia el texto y el color de fondo del botón según el estado de la conexión
     if connected:
-        connect_button.config(text="Conectado", bg="green", state=tk.DISABLED)
+        connect_button.config(state=tk.DISABLED)  # Deshabilita el botón "Conectar"
+        disconnect_button.config(state=tk.NORMAL)  # Habilita el botón "Desconectar"
         circle_color = "green"  # Cambia el color del círculo a verde cuando estás conectado
     else:
-        connect_button.config(text="Conectar", bg="silver", state=tk.NORMAL)
+        connect_button.config(state=tk.NORMAL)  # Habilita el botón "Conectar"
+        disconnect_button.config(state=tk.DISABLED)  # Deshabilita el botón "Desconectar"
         circle_color = "red"  # Cambia el color del círculo a rojo cuando estás desconectado
 
     # Actualiza el círculo de estado
@@ -244,45 +107,53 @@ def create_vpn_window():
     global status_label
     global server_label
     global connect_button
+    global disconnect_button
     global circle  # Agrega una referencia al widget del círculo
     global connected  # Añade esta línea para indicar que estás utilizando la variable global 'connected'
+    global server_combobox
 
     connected = False  # Agrega esta línea para asegurarte de que 'connected' se inicialice correctamente
 
     window = tk.Tk()
     window.title("Aplicación ExpressVPN")
 
+    window.resizable(False, False)  # Esta línea deshabilita el redimensionamiento
+
     label = tk.Label(window, text="Conexión a ExpressVPN", font=("Arial", 14))
     label.grid(columnspan=2, pady=10)
+
+    # Cargar la imagen
+    img = tk.PhotoImage(file="ExpressVPN-logo.png")
+
+    # Mostrar la imagen en un widget Label
+    img_label = tk.Label(window, image=img)
+    img_label.grid(columnspan=2, pady=(10, 10))
 
     server_combobox = ttk.Combobox(window, values=server_list, state="readonly")
     server_combobox.grid(columnspan=2, pady=5)
 
     connect_button = tk.Button(window, text="Conectar", command=lambda: connect_vpn(server_combobox.get()))
-    connect_button.grid(columnspan=2, pady=5)
+    connect_button.grid(columnspan=2, pady=10)
 
-    disconnect_button = tk.Button(window, text="Desconectar", command=disconnect_vpn)
-    disconnect_button.grid(columnspan=2, pady=5)
-
-    # Agrega una etiqueta para el círculo
+    # Agrega una etiqueta para el círculo junto a la etiqueta "Estado"
     circle = tk.Label(window, text="●", bg=circle_color, font=("Arial", 12))
-    circle.grid(row=4, column=0, padx=5, pady=5, sticky="e")  # Coloca el círculo junto a la etiqueta "Estado"
+    circle.grid(row=5, column=0, padx=(5, 0), pady=10, sticky="e")  # Coloca el círculo junto a la etiqueta "Estado"
 
     status_label = tk.Label(window, text="Estado: ")
-    status_label.grid(row=4, column=1, pady=5, sticky="w")  # Coloca la etiqueta "Estado" al lado del círculo
+    status_label.grid(row=5, column=1, pady=10, sticky="w")  # Asegura que esté en la fila 5
+
+    disconnect_button = tk.Button(window, text="Desconectar", command=disconnect_vpn, state=tk.DISABLED)
+    disconnect_button.grid(columnspan=2, pady=(10, 10))  # Aumenta el espacio inferior a 10 píxeles
 
     server_label = tk.Label(window, text="Servidor: ")
-    server_label.grid(columnspan=2, pady=5)
+    server_label.grid(columnspan=2, pady=10)
 
-    update_status_and_server("")  # Pasa una cadena vacía como valor inicial
-
-    # Añade este código para verificar el estado de la conexión al inicio
+    # Intenta obtener el estado de la conexión al inicio
     initial_status, initial_server = get_connection_status()
     if initial_status == "Conectado":
         connected = True
         update_status_and_server(initial_server)
-
-    server_combobox.set(initial_server)  # Establece el servidor conectado como seleccionado
+        server_combobox.set(initial_server)
 
     window.mainloop()
 
