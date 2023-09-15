@@ -55,6 +55,8 @@ sudo chmod +x ~/.local/share/applications/tu_script.desktop
 
 Ahora deberías poder buscar y encontrar tu script en el menú de aplicaciones.
 
+![lanzador-expressvpn](https://github.com/sapoclay/expressvpn-gui/assets/6242827/ca44463d-69e3-4b50-b838-beddbcaa7b6b)
+
 ¡Eso es todo! De ahora en adelante, puedes ejecutar tu script para utilizar tu EXPRESS VPN haciendo clic en el acceso directo.
 
 ## A tener en cuenta
