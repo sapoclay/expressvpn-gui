@@ -1,10 +1,10 @@
 # Expressvpn GUI escritorio GNOME
 
-![expressvpn-gui](https://github.com/sapoclay/expressvpn-gui/assets/6242827/e70b3476-b2a5-49be-9efc-666467836df6)
+![conexion-expressvpn](https://github.com/sapoclay/expressvpn-gui/assets/6242827/4877cec7-412c-4a81-a2d2-de8ad3af9c31)
 
 Una GUI para ExpressVPN ejecutable con Python 3.11 y en escritorio GNOME. Evidentemente debes de tener una cuenta con [EXPRESSVPN](https://www.expressvpn.com/es/refer-a-friend/30-days-free?locale=es&referrer_id=40141467&utm_campaign=referrals&utm_medium=copy_link&utm_source=referral_dashboard) comprada. Esto solo se ha creado por comodidad para mi ...
 
-![desconexion-expressvpn](https://github.com/sapoclay/expressvpn-gui/assets/6242827/7747e455-0ade-4177-beae-cb9ffef34bbd)
+![desconexion-expressvpn](https://github.com/sapoclay/expressvpn-gui/assets/6242827/8f3dab8e-ed20-40ab-9401-61f1500df16c)
 
 # Dependencias
 
@@ -16,7 +16,7 @@ Sin embargo, este script también depende de la herramienta expressvpn. Por eso,
 
 Primero, necesitas asegurarte de que tu script (el que te puedes descargar desde este repositorio) tenga permisos de ejecución. Abre una terminal y navega al directorio donde se encuentra tu script. Luego, ejecuta el siguiente comando para darle permisos de ejecución:
 ```
-sudo chmod +x tu_script.py
+sudo chmod +x expressvpn.py
 ```
 ## Crea un enlace directo
 
