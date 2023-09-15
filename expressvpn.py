@@ -115,7 +115,7 @@ def create_vpn_window():
     connected = False  # Agrega esta línea para asegurarte de que 'connected' se inicialice correctamente
 
     window = tk.Tk()
-    window.title("Aplicación ExpressVPN")
+    window.title("Conexión - ExpressVPN")
 
     window.resizable(False, False)  # Esta línea deshabilita el redimensionamiento
 
@@ -124,6 +124,9 @@ def create_vpn_window():
 
     # Cargar la imagen
     img = tk.PhotoImage(file="ExpressVPN-logo.png")
+
+    # Asignar la imagen como ícono de la ventana
+    window.tk.call('wm', 'iconphoto', window._w, img)
 
     # Mostrar la imagen en un widget Label
     img_label = tk.Label(window, image=img)
