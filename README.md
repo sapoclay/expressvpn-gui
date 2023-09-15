@@ -15,43 +15,48 @@ Sin embargo, este script también depende de la herramienta expressvpn. Por eso,
 ## Crea el script:
 
 Primero, necesitas asegurarte de que tu script (el que te puedes descargar desde este repositorio) tenga permisos de ejecución. Abre una terminal y navega al directorio donde se encuentra tu script. Luego, ejecuta el siguiente comando para darle permisos de ejecución:
-
+```
 sudo chmod +x tu_script.py
-
+```
 ## Crea un enlace directo
 
 Abre un editor de texto y crea un nuevo archivo. Puedes usar el siguiente comando en la terminal para abrir el editor de texto Gedit:
-
+```
 gedit ~/.local/share/applications/tu_script.desktop
-
+```
 Esto abrirá Gedit y te permitirá crear un nuevo archivo de escritorio. Si prefieres otro editor, puedes usarlo en su lugar.
 
 Llegados a este punto, adjunta el siguiente contenido al archivo (asegúrate de actualizar la ruta del script):
 ```
 [Desktop Entry]
-Version=1.0
 Type=Application
+Name=Express-VPN
+Icon=/ruta/hasta/la/carpeta/de/la/imagen/ExpressVPN-logo.png
+Exec=python3 /ruta/hasta/el/script/expressvpn.py
+Version=1.0
+Comment=Inicia la conexión VPN
 Terminal=false
-Exec=python3 /ruta/del/script/tu_script.py
-Name=Mi Script VPN
-Comment=Inicia mi script VPN
-Icon=/ruta/a/un/icono.png
-Path=/ruta/del/script/
+Path=/ruta/a/la/carpeta/donde/guardamos/el/script/expressvpn
 ```
-    Exec: Debes reemplazar /ruta/del/script/tu_script.py con la ruta completa de tu script.
+    Exec: Debes reemplazar /ruta/hasta/el/script/expressvpn.py con la ruta completa de tu script.
     Name: Es el nombre que aparecerá en el acceso directo.
     Comment: Es una descripción opcional.
+    Path: Indica solo la ruta. No es necesario añadir al final el nombre del archivo.
 
 Si tienes un icono personalizado, también puedes especificar la ruta en la línea Icon.
 
 ## Haz que el archivo sea ejecutable
 
 Debes asegurarte de que el archivo .desktop sea ejecutable. Para hacerlo, ejecuta el siguiente comando:
-
+```
 sudo chmod +x ~/.local/share/applications/tu_script.desktop
-
+```
 ## Encuentra el Acceso Directo en tu Menú
 
 Ahora deberías poder buscar y encontrar tu script en el menú de aplicaciones.
 
 ¡Eso es todo! De ahora en adelante, puedes ejecutar tu script para utilizar tu EXPRESS VPN haciendo clic en el acceso directo.
+
+## A tener en cuenta
+
+El tooltip que debería leerse al pasar el ratón por encima del icono que aparece en la barra de herramientas, no se muestra correctamente en todos los sistemas operativos.
