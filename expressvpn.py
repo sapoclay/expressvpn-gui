@@ -9,6 +9,7 @@ connected = False
 # Variable global para el color del círculo
 circle_color = "red"  # Inicialmente, el círculo está en rojo (desconectado)
 
+# Obtener el listado de servidores
 def get_server_list():
     try:
         result = subprocess.run(["expressvpn", "list", "all"], capture_output=True, text=True)
@@ -23,9 +24,10 @@ def get_server_list():
         print(f"Error al obtener la lista de servidores: {e}")
         return []
 
-# lista de servidores
+# Lista de servidores obtenidos de la aplicación ExpressVPN instalada en el sistema
 server_list = get_server_list()
 
+# Obtener el estado (Conectado o Desconectado) 
 def get_connection_status():
     try:
         result = subprocess.run(["expressvpn", "status"], capture_output=True, text=True)
@@ -41,15 +43,14 @@ def get_connection_status():
         print(f"Error al obtener el estado de la conexión: {e}")
         return "Desconectado", ""
 
-
-
+# Función para conectar la VPN
 def connect_vpn(selected_server):
     global connected
     if not selected_server:
         messagebox.showwarning("Advertencia", "Primero debes seleccionar un servidor al que conectarte.")
     else:
         if connected:
-            # Si ya está conectado, no se permite reconectar.
+            # Si ya estamos conectado, no se permite reconectar. También se deshabilita el botón conectar en otra parte del código
             messagebox.showinfo("Conexión VPN", "Ya estás conectado a un servidor.")
         else:
             try:
@@ -60,6 +61,7 @@ def connect_vpn(selected_server):
             except subprocess.CalledProcessError:
                 messagebox.showerror("Error", "No se pudo conectar a ExpressVPN.")
 
+# Función para desconectar
 def disconnect_vpn():
     global connected
     try:
@@ -70,14 +72,15 @@ def disconnect_vpn():
     except subprocess.CalledProcessError:
         messagebox.showerror("Error", "No se pudo desconectar de ExpressVPN.")
 
-
+# Función para actualizar el servidor y el estado
 def update_status_and_server(server):
     global status_label
     global server_label
     global connect_button
     global disconnect_button
-    global circle_color  # Agrega una referencia al color del círculo
+    global circle_color  # Añade una referencia al color del círculo
 
+    # Etiquetas a mostrar en la aplicación
     status, _ = get_connection_status()
     status_label.config(text=f"Estado: {status}")
     server_label.config(text=f"Servidor: {server}" if server else "Servidor: ")
@@ -95,6 +98,7 @@ def update_status_and_server(server):
     # Actualiza el círculo de estado
     update_circle_status()
 
+# Función para actualizar el color de círculo
 def update_circle_status():
     status, _ = get_connection_status()
 
@@ -108,18 +112,19 @@ def create_vpn_window():
     global server_label
     global connect_button
     global disconnect_button
-    global circle  # Agrega una referencia al widget del círculo
+    global circle  # Añade una referencia al widget del círculo
     global connected  # Añade esta línea para indicar que estás utilizando la variable global 'connected'
     global server_combobox
 
-    connected = False  # Agrega esta línea para asegurarte de que 'connected' se inicialice correctamente
+    connected = False  # Añadimos esta línea para asegurarnos de que 'connected' se inicialice correctamente
 
     window = tk.Tk()
-    window.title("Conexión - ExpressVPN")
+    window.title("Conexión - ExpressVPN") # El tooltip no funciona correctamente en todos los sistemas
 
-    window.resizable(False, False)  # Esta línea deshabilita el redimensionamiento
+    window.resizable(False, False)  # Esta línea deshabilita el redimensionamiento de la ventana
 
-    label = tk.Label(window, text="Conexión a ExpressVPN", font=("Arial", 14))
+    # Título dentro de la ventana
+    label = tk.Label(window, text="Conexión a ExpressVPN", font=("Arial", 14)) 
     label.grid(columnspan=2, pady=10)
 
     # Cargar la imagen
@@ -138,7 +143,7 @@ def create_vpn_window():
     connect_button = tk.Button(window, text="Conectar", command=lambda: connect_vpn(server_combobox.get()))
     connect_button.grid(columnspan=2, pady=10)
 
-    # Agrega una etiqueta para el círculo junto a la etiqueta "Estado"
+    # Añade una etiqueta para el círculo junto a la etiqueta "Estado"
     circle = tk.Label(window, text="●", bg=circle_color, font=("Arial", 12))
     circle.grid(row=5, column=0, padx=(5, 0), pady=10, sticky="e")  # Coloca el círculo junto a la etiqueta "Estado"
 
@@ -146,12 +151,12 @@ def create_vpn_window():
     status_label.grid(row=5, column=1, pady=10, sticky="w")  # Asegura que esté en la fila 5
 
     disconnect_button = tk.Button(window, text="Desconectar", command=disconnect_vpn, state=tk.DISABLED)
-    disconnect_button.grid(columnspan=2, pady=(10, 10))  # Aumenta el espacio inferior a 10 píxeles
+    disconnect_button.grid(columnspan=2, pady=(10, 10))  # Aumenta el espacio inferior y superior a 10 píxeles
 
     server_label = tk.Label(window, text="Servidor: ")
-    server_label.grid(columnspan=2, pady=10)
+    server_label.grid(columnspan=2, pady=(10, 10))
 
-    # Intenta obtener el estado de la conexión al inicio
+    # Intenta obtener el estado de la conexión cuando se inicia la aplicación
     initial_status, initial_server = get_connection_status()
     if initial_status == "Conectado":
         connected = True
