@@ -12,9 +12,9 @@ Para ejecutar este script, necesitarás tener instalado Python 3.11 y las biblio
 
 Nota: Después de probar esta GUI en Mint, he tenido que instalar tkinter con el siguiente comando:
 
-´´´
+```
 sudo apt install python3-tk
-´´´
+```
 
 Sin embargo, este script también depende de la herramienta expressvpn. Por eso, es necesario asegurarse de tener esta herramienta instalada y configurada correctamente en tu sistema. Si no la tienes, deberás [instalarla](https://www.expressrefer.com/refer-a-friend/30-days-free?locale=es&referrer_id=40141467&utm_campaign=referrals&utm_medium=copy_link&utm_source=referral_dashboard)  antes de ejecutar el script.
 
